@@ -6,7 +6,7 @@ const AllBreweriesDiv = styled.div`
     flex-flow: row wrap;    
     justify-content: space-evenly;
     background-color: #F0F8FF; /* AliceBlue background for the list container */
-    padding: 20px;
+    padding: 5%;
 `;
 
 const SingleBreweriesDiv = styled.div<{ type: string}>`
@@ -20,6 +20,7 @@ const SingleBreweriesDiv = styled.div<{ type: string}>`
     border: 3px solid #333;
     font-family: Arial, sans-serif;
     text-align: center;
+    color: white;
 `;
 
 export default function BreweryList(props : {data: Brewery[]}){
@@ -27,9 +28,9 @@ export default function BreweryList(props : {data: Brewery[]}){
         <AllBreweriesDiv>
             {
                 props.data.map((brew: Brewery) =>
-                    <SingleBreweriesDiv key={brew.id} type={brew.type}>
+                    <SingleBreweriesDiv key={brew.id} type={brew.brewery_type}>
                         <h1>{brew.name}</h1>
-                        <h2>{brew.type}</h2>
+                        <h2>{brew.brewery_type}</h2>
                         <p>{brew.city}, {brew.state}</p>
                     </SingleBreweriesDiv>
                 )

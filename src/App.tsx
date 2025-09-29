@@ -1,6 +1,16 @@
 import styled from "styled-components";
 import {useEffect, useState} from "react";
-import {Brewery} from "./interfaces/Brewery.ts";
+import type {Brewery} from "./interfaces/Brewery.ts";
+import BreweryList from "./components/BreweryList.tsx";
+
+const AppContainer = styled.div`
+    width: 80vw;
+    margin: auto;
+    border: 5px #333 solid;
+    padding: 5%;
+    background-color: #f0f8ff;
+`;
+
 
 export default function App() {
 
@@ -9,11 +19,17 @@ export default function App() {
     useEffect(() => {
         async function fetchData(): Promise<void> {
             const rawData = await fetch("https://api.openbrewerydb.org/v1/breweries");
-            const {res} = await rawData.json();
-            setData(res.url);
+            const breweries: Brewery[] = await rawData.json();
+            setData(breweries);
         }
         fetchData()
             .then(() => console.log("data sucess"))
             .catch(err => console.log(err));
-    })
+    }, [data.length])
+
+    return(
+        <AppContainer>
+            <BreweryList data={data}/>
+        </AppContainer>
+    )
 }
